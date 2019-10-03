@@ -1,6 +1,20 @@
 .App {
   text-align: center;
+  color: #FC4C02;
   background: url('./kom-killer-background.jpg') 0% 0% no-repeat;
+}
+
+.App section {
+  min-height: 70vh;
+}
+
+.App section img {
+  border-radius: 25px;
+}
+
+a {
+  display: block;
+  color: white;
 }
 
 .App-logo {
@@ -10,13 +24,12 @@
 }
 
 .App-header {
-  min-height: 100vh;
+  min-height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: top;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {

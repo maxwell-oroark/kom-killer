@@ -1,12 +1,13 @@
 import React from 'react';
 import TokenHandler from './TokenHandler';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './App.css';
 
 class App extends React.Component {
 
   state = {
-    position: '' 
+    position: '', 
+    athlete: null
   }
 
   componentDidMount(){
@@ -22,7 +23,13 @@ class App extends React.Component {
     window.location = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=read`
   }
 
+  processStrava = data => {
+    window.localStorage.setItem('accessToken', data.access_token)
+    return this.setState({ athlete: data.athlete }) 
+  }
+
   render(){
+    console.log(this.state.strava)
     return (
       <Router>
         <Switch>
@@ -33,20 +40,26 @@ class App extends React.Component {
                 <p>
                   <code>{ this.state.position }</code>
                 </p>
-                <a
-                  className="App-link"
-                  href="https://reactjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn React
-                </a>
-                <button onClick={this.connectStrava} >Connect Strava Account</button>
               </header>
+              <section>
+                {
+                  this.state.athlete
+                    ? <div>
+                        <h3>Authenticated!</h3>
+                        <img src={this.state.athlete.profile_medium} /> 
+                        <h5>welcome {this.state.athlete.firstname}</h5>
+                        <Link to={'/easykoms'}> See easy KOMs near you</Link>
+                    </div>
+
+                    : <button onClick={this.connectStrava} >Connect Strava Account</button>
+                }
+              </section>
             </div>
           </Route>
           <Route exact path='/token'>
-            <TokenHandler />
+            <TokenHandler 
+              processStrava={this.processStrava} 
+            />
           </Route>
         </Switch>
       </Router>

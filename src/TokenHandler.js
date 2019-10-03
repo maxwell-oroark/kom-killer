@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 // TODO embed environment variable in lambda and exchange for real token so I can begin hitting actual API
 
@@ -16,7 +16,8 @@ class TokenHandler extends React.Component {
     try {
       const response = await fetch(`https://cxwj5fkd00.execute-api.us-east-1.amazonaws.com/prod?code=${code}`).then(res => res.json())
       console.log(response)
-      return this.setState({ strava: response })
+      await this.props.processStrava(response);
+      this.setState({ strava: response })
     } catch(error) {
       console.log(error) 
     }
@@ -27,8 +28,7 @@ class TokenHandler extends React.Component {
       <>
         <div><Link to='/'>Home</Link></div>
         <div>token handler</div>
-        <div>{this.state.code}</div>
-        <div>{JSON.stringify(this.state.strava)}</div>
+      <div>{ this.state.strava ? <Redirect to='/' /> : "Authentication Errors" }</div>
       </>
     ) 
   }

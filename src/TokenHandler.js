@@ -8,10 +8,15 @@ class TokenHandler extends React.Component {
     code: '' 
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code')
-    this.setState({ code })
+    try {
+      const response = await fetch(`https://cxwj5fkd00.execute-api.us-east-1.amazonaws.com/prod?code=${code}`).then(res => res.json())
+      console.log(response)
+    } catch(error) {
+      console.log(error) 
+    }
   }
 
   render(){

@@ -1,14 +1,17 @@
 import React from 'react';
 import TokenHandler from './TokenHandler';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import logo from './logo.svg';
 import './App.css';
 
 class App extends React.Component {
 
+  state = {
+    position: '' 
+  }
+
   componentDidMount(){
     navigator.geolocation.getCurrentPosition(position => {
-      console.log('users position:', position) 
+      this.setState({ position: `${position.coords.latitude}, ${position.coords.longitude}` })
     }) 
   }
 
@@ -26,9 +29,9 @@ class App extends React.Component {
           <Route exact path="/">
             <div className="App">
               <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
+                <h1>Kom Killer<span style={{ fontSize: '10px' }}>beta</span></h1>
                 <p>
-                  Edit <code>src/App.js</code> and save to reload.
+                  <code>{ this.state.position }</code>
                 </p>
                 <a
                   className="App-link"

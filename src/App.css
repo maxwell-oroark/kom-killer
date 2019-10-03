@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background: url('./kom-killer-background.jpg') 0% 0% no-repeat;
 }
 
 .App-logo {
@@ -9,7 +10,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

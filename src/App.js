@@ -12,6 +12,8 @@ class App extends React.Component {
 
   componentDidMount(){
     navigator.geolocation.getCurrentPosition(position => {
+      window.localStorage.setItem('latitude', position.coords.latitude)
+      window.localStorage.setItem('longitude', position.coords.longitude)
       this.setState({ position: `${position.coords.latitude}, ${position.coords.longitude}` })
     }) 
   }
@@ -29,7 +31,6 @@ class App extends React.Component {
   }
 
   render(){
-    console.log(this.state.strava)
     return (
       <Router>
         <Switch>
@@ -46,11 +47,13 @@ class App extends React.Component {
                   this.state.athlete
                     ? <div>
                         <h3>Authenticated!</h3>
-                        <img src={this.state.athlete.profile_medium} /> 
+                        <img 
+                          alt='strava profile athlete'
+                          src={this.state.athlete.profile_medium} 
+                        /> 
                         <h5>welcome {this.state.athlete.firstname}</h5>
                         <Link to={'/easykoms'}> See easy KOMs near you</Link>
-                    </div>
-
+                      </div>
                     : <button onClick={this.connectStrava} >Connect Strava Account</button>
                 }
               </section>

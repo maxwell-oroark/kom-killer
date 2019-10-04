@@ -1,4 +1,5 @@
 import React from 'react';
+import Koms from './Koms';
 import TokenHandler from './TokenHandler';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './App.css';
@@ -52,12 +53,17 @@ class App extends React.Component {
                           src={this.state.athlete.profile_medium} 
                         /> 
                         <h5>welcome {this.state.athlete.firstname}</h5>
-                        <Link to={'/easykoms'}> See easy KOMs near you</Link>
+                        <Link to={'/koms'}> See easy KOMs near you</Link>
                       </div>
                     : <button onClick={this.connectStrava} >Connect Strava Account</button>
                 }
               </section>
             </div>
+          </Route>
+          <Route exact path='/koms'>
+            <Koms
+              athlete={this.state.athlete}
+            />
           </Route>
           <Route exact path='/token'>
             <TokenHandler 

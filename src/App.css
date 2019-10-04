@@ -17,6 +17,14 @@ a {
   color: white;
 }
 
+button {
+  height: 35px;
+  color: white;
+  background-color: #FC4C02;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 .loading-container {
   min-height: 100vh;
   min-width: 100vh;

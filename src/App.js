@@ -38,10 +38,7 @@ class App extends React.Component {
           <Route exact path="/">
             <div className="App">
               <header className="App-header">
-                <h1>Kom Killer<span style={{ fontSize: '10px' }}>beta</span></h1>
-                <p>
-                  <code>{ this.state.position }</code>
-                </p>
+                <h1>Kom Killer<span style={{ fontSize: '14px' }}>beta</span></h1>
               </header>
               <section>
                 {
@@ -53,7 +50,7 @@ class App extends React.Component {
                           src={this.state.athlete.profile_medium} 
                         /> 
                         <h5>welcome {this.state.athlete.firstname}</h5>
-                        <Link to={'/koms'}> See easy KOMs near you</Link>
+                        <Link to={'/koms'}><button>See easy KOMs near you</button></Link>
                       </div>
                     : <button onClick={this.connectStrava} >Connect Strava Account</button>
                 }

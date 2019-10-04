@@ -1,0 +1,10 @@
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 45vh 1fr;
+}
+
+img.marker {
+  border-radius: 25px;
+  max-height: 25px;
+}

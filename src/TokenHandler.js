@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-
-// TODO embed environment variable in lambda and exchange for real token so I can begin hitting actual API
+import settings from './settings';
+import { ReactComponent as Logo } from './logo.svg'
+import { Redirect } from 'react-router-dom';
+import './App.css';
 
 class TokenHandler extends React.Component {
 
@@ -14,8 +15,7 @@ class TokenHandler extends React.Component {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code')
     try {
-      const response = await fetch(`https://cxwj5fkd00.execute-api.us-east-1.amazonaws.com/prod?code=${code}`).then(res => res.json())
-      console.log(response)
+      const response = await fetch(`${settings.AWS_BACKEND}?code=${code}`).then(res => res.json())
       await this.props.processStrava(response);
       this.setState({ strava: response })
     } catch(error) {
@@ -25,11 +25,14 @@ class TokenHandler extends React.Component {
 
   render(){
     return (
-      <>
-        <div><Link to='/'>Home</Link></div>
-        <div>token handler</div>
-      <div>{ this.state.strava ? <Redirect to='/' /> : "Authentication Errors" }</div>
-      </>
+      <div className="loading-container">
+        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent:'center', color: 'white' }}>
+          <Logo 
+            className="App-logo" />
+            <h4>Authenticating...</h4>
+        </div>
+        <div>{ this.state.strava && <Redirect to='/' /> }</div>
+      </div>
     ) 
   }
 }

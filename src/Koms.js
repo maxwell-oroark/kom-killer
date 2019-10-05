@@ -54,12 +54,12 @@ class Koms extends React.Component {
 
   render(){
     return (
-      <div className="container">
+      <div className="koms-container">
         <div 
           ref={el => (this.mapContainer = el)}
           className="map">
         </div>
-        <table>
+        <table className="table-striped table-dark">
           <thead>
             <tr>
               <th>NAME</th>

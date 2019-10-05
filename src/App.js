@@ -1,4 +1,5 @@
 import React from 'react';
+import settings from './settings';
 import Koms from './Koms';
 import TokenHandler from './TokenHandler';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -20,8 +21,8 @@ class App extends React.Component {
   }
 
   connectStrava = () => {
-    const clientId = `39086`;
-    const redirectUri = `http://localhost:3000/token`;
+    const clientId = settings.STRAVA_CLIENT_ID ;
+    const redirectUri = settings.STRAVA_REDIRECT_URI;
     const responseType = `code`;
     window.location = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=read`
   }

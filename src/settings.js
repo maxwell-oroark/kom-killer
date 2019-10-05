@@ -16,4 +16,4 @@ const settings = (env) => {
   return config[env]
 }
 
-export default settings(process.ENV.REACT_APP_ENV)
+export default settings(process.env.REACT_APP_ENV)

@@ -7,9 +7,17 @@ import { getAccessToken } from './bin/utilities';
 const accessToken = getAccessToken()
 const api = new strava.client(accessToken)
 
-
 const parseSegments = allSegments => {
-  const parsed = _.chain(allSegments).map(payload => payload.segments).flattenDeep().uniqBy('id').value()
+  const parsed = _
+    // extract array of objects for each promise payload
+    .chain(allSegments).map(payload => payload.segments)
+    // combine three arrays into one array  
+    .flatten()
+    // de-dupe segments 
+    .uniqBy('id')
+    // return value
+    .value()
+
   console.log(parsed)
   return parsed;
 }

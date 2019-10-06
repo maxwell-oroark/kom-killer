@@ -65,3 +65,15 @@ button {
     transform: rotate(360deg);
   }
 }
+
+.koms-container {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: 45vh 1fr;
+  background: #d3d3d3;
+}
+
+img.marker {
+  border-radius: 25px;
+  max-height: 25px;
+}

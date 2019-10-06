@@ -2,7 +2,6 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import settings from './settings.js'
-import './Koms.css';
 import strava from 'strava-v3'
 
 mapboxgl.accessToken = settings.MAPBOX_TOKEN;

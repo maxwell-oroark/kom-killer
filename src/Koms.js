@@ -1,4 +1,5 @@
 import React from 'react';
+import SegmentRow from './SegmentRow';
 import { fetchSegments } from './strava';
 import { getLocation } from './bin/utilities.js'
 import mapboxgl from 'mapbox-gl';
@@ -23,9 +24,15 @@ class Koms extends React.Component {
       zoom: 10
     });
 
-    const { segments, area } = await fetchSegments(location);
+    this._map = map;
 
-    this.setState({ segments })
+    try {
+      this.setState({ pending: true })
+      var { segments, area } = await fetchSegments(location);
+      this.setState({ pending: false, segments })
+    } catch( error ) {
+      this.setState({ error }) 
+    }
 
     map.on('load', () => {
      // create a HTML element for each feature
@@ -46,37 +53,64 @@ class Koms extends React.Component {
     })
   }
 
+  displaySegment = (segment) => {
+    const id = '' + segment.id
+    const random_color = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+
+    if ( this._map.getLayer( id ) ) {
+      this._map.removeLayer(id)
+      this._map.removeSource(id)
+      return;
+    }
+
+    this._map.addLayer({
+      id,
+      type: 'line',
+      source: {
+        type: "geojson",
+        data: segment.geojson
+      },
+      layout: {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      paint: {
+        "line-color": random_color,
+        "line-width": 8,
+        "line-opacity": .85
+      }
+    })
+  }
+
   render(){
+    console.log(this.state.segments)
     return (
       <div className="koms-container">
         <div 
           ref={el => (this.mapContainer = el)}
           className="map">
         </div>
-        <table className="table-striped table-dark">
-          <thead>
-            <tr>
-              <th>NAME</th>
-              <th>DISTANCE</th>
-              <th>CAT</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.segments && this.state.segments.map((segment, index) => (
-              <tr key={`segment-${segment.name + index}`}>
-                <td>
-                  {segment.name}
-                </td>
-                <td>
-                  {segment.distance}
-                </td>
-                <td>
-                  {segment.climb_category}
-                </td>
+        {
+          this.state.pending ? "loading segments..." :
+          <table className="table-striped table-dark">
+            <thead>
+              <tr>
+                <th>NAME</th>
+                <th>DISTANCE</th>
+                <th>CAT</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.state.segments && this.state.segments.map((segment, index) => (
+                <SegmentRow 
+                  key={`segment-${index}-${segment.id}`}
+                  displaySegment={this.displaySegment}
+                  segment={segment} 
+                />
+              ))}
+            </tbody>
+          </table>
+        }
       </div>
     ) 
   }

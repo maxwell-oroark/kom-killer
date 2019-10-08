@@ -18,7 +18,6 @@ const parseSegments = allSegments => {
     // return value
     .value()
 
-  console.log(parsed)
   return parsed;
 }
 
@@ -35,12 +34,16 @@ export async function fetchSegments(location){
     const point = turf.point(location);
     const points = scaledPoints(point); 
     // take largest buffered search area for zoom purposes
-    const area = turf.bbox(points[2]); 
+    const area = turf.bbox(points[points.length - 1]); 
     const promises = points.map(point => {
       const bbox = turf.bbox(point);
       return api.segments.explore({ bounds: `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`, activity_type: 'riding' })
     })
     const allSegments = await Promise.all(promises);
     const processed = parseSegments(allSegments)
-    return ({ segments: processed, area })
+    const updated = await Promise.all(processed.map( async segment => {
+      return api.segments.get({ id: segment.id }) 
+    }))
+    return ({ segments: updated, area });
 }
+

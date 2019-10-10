@@ -14,7 +14,8 @@ class SegmentRow extends React.Component {
   render(){
     const { segment } = this.props
     return (
-        <tr onClick={this.displaySegment}>
+      <tr className="segment-row"
+          onClick={this.displaySegment}>
           <td>
             {segment.name}
           </td>

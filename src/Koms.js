@@ -10,7 +10,9 @@ mapboxgl.accessToken = settings.MAPBOX_TOKEN;
 class Koms extends React.Component {
 
   state = {
-    segments: []
+    segments: [],
+    pending: true,
+    error: null
   }
 
   async componentDidMount(){

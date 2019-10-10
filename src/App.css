@@ -4,6 +4,39 @@
   background: url('./images/kom-killer-background.jpg') 0% 0% no-repeat;
 }
 
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-logo path, .App-logo circle {
+  fill: white;
+}
+
+.App-header {
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .App section {
   min-height: 70vh;
 }
@@ -42,41 +75,13 @@ button {
 
 .loading-container {
   min-height: 100vh;
-  min-width: 100vh;
+  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #FC4C02;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-logo path, .App-logo circle {
-  fill: white;
-}
-
-.App-header {
-  min-height: 30vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: top;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.segment-row {
+  height: 50px;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import SegmentRow from './SegmentRow';
-import { fetchSegments } from './strava';
+import { fetchSegments, fetchZones } from './strava';
 import { getLocation } from './bin/utilities.js'
 import mapboxgl from 'mapbox-gl';
 import settings from './settings.js'
@@ -35,6 +35,10 @@ class Koms extends React.Component {
     } catch( error ) {
       this.setState({ error }) 
     }
+
+
+    const zones = fetchZones()
+    console.log(zones)
 
     map.on('load', () => {
      // create a HTML element for each feature

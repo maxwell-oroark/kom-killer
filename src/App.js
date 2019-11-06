@@ -24,7 +24,7 @@ class App extends React.Component {
     const clientId = settings.STRAVA_CLIENT_ID ;
     const redirectUri = settings.STRAVA_REDIRECT_URI;
     const responseType = `code`;
-    window.location = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=read`
+    window.location = `https://www.strava.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=read_all`
   }
 
   processStrava = data => {

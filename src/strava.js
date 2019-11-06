@@ -47,3 +47,11 @@ export async function fetchSegments(location){
     return ({ segments: updated, area });
 }
 
+export async function fetchZones(){
+  try {
+    return api.athlete.listZones({})
+  } catch(error) {
+    console.log(error) 
+  }
+}
+
